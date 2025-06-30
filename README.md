@@ -47,6 +47,9 @@ You can run it locally by starting the server (`app.js`) and opening `index.html
 2. The backend generates and stores a short code using `nanoid` + MongoDB.
 3. Visiting the short link redirects the user to the original URL.
 
+## Demo Video
+[Click here to view the demo](./demo.mp4)
+
 Author
 Nouran Khalil – CodeAlpha Backend Intern
 GitHub: nourankh1
