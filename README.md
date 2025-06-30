@@ -1,5 +1,5 @@
 
-# 🔗 Simple URL Shortener — CodeAlpha Backend Internship (Task 1)
+# Simple URL Shortener — CodeAlpha Backend Internship (Task 1)
 
 A clean and functional URL shortener built using **Node.js**, **Express.js**, **MongoDB**, and **Vanilla JavaScript**. This project was developed as part of the **CodeAlpha Backend Development Internship**.
 
