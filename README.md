@@ -15,11 +15,11 @@ A clean and functional URL shortener built using **Node.js**, **Express.js**, **
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-| Frontend        | Backend          | Database |
-|-----------------|------------------|----------|
-| HTML, CSS, JS   | Node.js, Express | MongoDB  |
+Frontend : HTML, CSS, JS
+Backend : Node.js, Express 
+Database : MongoDB 
 
 ---
 
@@ -28,7 +28,7 @@ url-shortener/
 ├── app.js # Express backend logic
 ├── index.html # Frontend page
 ├── models/
-│ └── urlSch.js # Mongoose schema
+│ └── Url.js # Mongoose schema
 ├── package.json # Project metadata
 ├── package-lock.json # Dependency lock file
 ├── README.md # Project documentation
