@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Simple URL Shortener</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      max-width: 500px;
+      margin: auto;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    #result a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    #result a:hover {
+      text-decoration: underline;
+    }
+    #copyBtn {
+      padding: 6px 12px;
+      font-size: 14px;
+      margin-top: 10px;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <h2>Simple URL Shortener</h2>
+
+  <input type="text" id="originalUrl" placeholder="Enter a long URL" />
+  <button id="shortenBtn">Shorten</button>
+
+  <div id="result"></div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("shortenBtn").addEventListener("click", shortenUrl);
+    });
+
+    async function shortenUrl() {
+      const url = document.getElementById("originalUrl").value.trim();
+      const resultBox = document.getElementById("result");
+
+      resultBox.innerHTML = ""; // Clear previous
+
+      // Validation: empty input
+      if (!url) {
+        resultBox.innerText = "Please enter a URL.";
+        return;
+      }
+
+      // Validation: starts with http
+      if (!/^https?:\/\//i.test(url)) {
+        resultBox.innerText = "URL must start with http:// or https://";
+        return;
+      }
+
+      // Check if already shortened
+      if (url.startsWith("http://localhost:5000")) {
+        resultBox.innerText = "This URL is already shortened.";
+        return;
+      }
+
+      try {
+        const response = await fetch('http://localhost:5000/shortenurl', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ originalUrl: url })
+        });
+
+        const data = await response.json();
+
+        if (data.shortUrl) {
+          resultBox.innerHTML = `
+            <a href="${data.shortUrl}" target="_blank">${data.shortUrl}</a>
+            <br/>
+            <button id="copyBtn">📋 Copy</button>
+          `;
+
+          document.getElementById("copyBtn").addEventListener("click", () => {
+            navigator.clipboard.writeText(data.shortUrl).then(() => {
+              document.getElementById("copyBtn").innerText = "Copied!";
+            });
+          });
+        } else {
+          resultBox.innerText = `${data.error || 'Something went wrong.'}`;
+        }
+
+      } catch (err) {
+        console.error("Fetch error:", err);
+        resultBox.innerText = "Could not connect to server.";
+      }
+    }
+  </script>
+</body>
+</html>
